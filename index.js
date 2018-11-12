@@ -25,6 +25,9 @@ app.get("/five", (req, res) => {
   res.sendFile(path.join(__dirname, "htmlFiles/five.html"));
 });
 
+// 6. Create another static file directory but map it to a different
+// logical path
+// 7. Add some static files to the directory in step 6.
 app.get("/pdfFiles", (req, res) => {
   res.download(
     path.join(__dirname, "pdfFiles/projectDetails.pdf"),
