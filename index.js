@@ -3,28 +3,31 @@ const app = express();
 
 var path = require("path");
 
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
 app.get("/", (req, res) => res.send("Hello World!"));
 
 //3. Create five GET routes in Express, one per HTML document, that render the HTML documents.
 app.get("/one", (req, res) => {
-  res.sendFile(path.join(__dirname, "htmlFiles / one.html"));
+  res.sendFile(path.join(__dirname, "htmlFiles/one.html"));
 });
 app.get("/two", (req, res) => {
-  res.sendFile(path.join(__dirname, "htmlFiles / two.html"));
+  res.sendFile(path.join(__dirname, "htmlFiles/two.html"));
 });
 app.get("/three", (req, res) => {
-  res.sendFile(path.join(__dirname, "htmlFiles / three.html"));
+  res.sendFile(path.join(__dirname, "htmlFiles/three.html"));
 });
 app.get("/four", (req, res) => {
-  res.sendFile(path.join(__dirname, "htmlFiles / four.html"));
+  res.sendFile(path.join(__dirname, "htmlFiles/four.html"));
 });
 app.get("/five", (req, res) => {
-  res.sendFile(path.join(__dirname, "htmlFiles / five.html"));
+  res.sendFile(path.join(__dirname, "htmlFiles/five.html"));
 });
 
 app.get("/pdfFiles", (req, res) => {
   res.download(
-    path.join(__dirname, "pdfFiles / document.pdf"),
+    path.join(__dirname, "pdfFiles/projectDetails.pdf"),
     "projectDetails.pdf"
   );
 });
@@ -32,6 +35,21 @@ app.get("/pdfFiles", (req, res) => {
 //8. Create a GET route that redirects to some other location
 app.get("/redirectThisUri", (req, res) => {
   res.redirect(301, "/one");
+});
+
+// 9. Create two EJS templates(they can be named anything) that accept
+// two properties from an Express route each
+// 10. Create two GET routes, one for each EJS template, that renders the
+// templates and passes a JSON object with two properties into them
+app.get("/ejs1", (req, res) => {
+  res.render("index", { title: "Home", message: "Welcome to the index" });
+});
+
+app.get("/ejs2", (req, res) => {
+  res.render("index2", {
+    title: "EJS TEMPLATE",
+    message: "Welcome to ThunderDome"
+  });
 });
 
 // app.set(express.static(path.join(__dirname, ‘views’)));
